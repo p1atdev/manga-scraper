@@ -1,0 +1,4 @@
+feedparser
+opencv-python
+python-opencv-utils
+.
