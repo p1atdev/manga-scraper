@@ -8,8 +8,8 @@ from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
 import numpy as np
 
-from src.solver.manga_solver import MangaSolver, MangaImage
-from src.downloader.common import Downloader
+from ..solver.manga_solver import MangaSolver, MangaImage
+from ..downloader.common import Downloader
 
 
 class EpisodePageItem(TypedDict):
