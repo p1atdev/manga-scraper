@@ -3,8 +3,18 @@ import cv2
 import numpy as np
 
 
-class MangaSolver:
-    manga_image: np.ndarray
+class MangaImage:
+    image: np.ndarray
+
+    def __init__(self, image: np.ndarray):
+        self.image = image
+
+    def buffer(self, ext: str = ".png") -> bytes:
+        return cv2.imencode(ext, self.image)[1].tobytes()
+
+
+class MangaPuzzle:
+    image: np.ndarray
     height: int
     width: int
     cell_width: int
@@ -13,13 +23,13 @@ class MangaSolver:
     DIVIDE_NUM = 4
     MULTIPLE = 8
 
-    def __init__(self, manga_path_or_url: str):
-        if manga_path_or_url.startswith("http"):
-            self.manga_image = cv2u.urlread(manga_path_or_url)
+    def __init__(self, image_path_or_url: str):
+        if image_path_or_url.startswith("http"):
+            self.image = cv2u.urlread(image_path_or_url)
         else:
-            self.manga_image = cv2.imread(manga_path_or_url)
+            self.image = cv2.imread(image_path_or_url)
 
-        self.height, self.width = self.manga_image.shape[:2]
+        self.height, self.width = self.image.shape[:2]
         self.cell_width = (
             self.width // (self.DIVIDE_NUM * self.MULTIPLE)
         ) * self.MULTIPLE
@@ -27,29 +37,35 @@ class MangaSolver:
             self.height // (self.DIVIDE_NUM * self.MULTIPLE)
         ) * self.MULTIPLE
 
-    def solve(self):
-        for i in range(self.DIVIDE_NUM):
+
+class MangaSolver:
+    def _load_image(self, image_path_or_url: str) -> MangaPuzzle:
+        return MangaPuzzle(image_path_or_url)
+
+    def solve(self, image_path_or_url: str) -> MangaImage:
+        puzzle = self._load_image(image_path_or_url)
+
+        for i in range(puzzle.DIVIDE_NUM):
             for j in range(i + 1):
                 # swap
                 (
-                    self.manga_image[
-                        j * self.cell_height : (j + 1) * self.cell_height,
-                        i * self.cell_width : (i + 1) * self.cell_width,
+                    puzzle.image[
+                        j * puzzle.cell_height : (j + 1) * puzzle.cell_height,
+                        i * puzzle.cell_width : (i + 1) * puzzle.cell_width,
                     ],
-                    self.manga_image[
-                        i * self.cell_height : (i + 1) * self.cell_height,
-                        j * self.cell_width : (j + 1) * self.cell_width,
+                    puzzle.image[
+                        i * puzzle.cell_height : (i + 1) * puzzle.cell_height,
+                        j * puzzle.cell_width : (j + 1) * puzzle.cell_width,
                     ],
                 ) = (
-                    self.manga_image[
-                        i * self.cell_height : (i + 1) * self.cell_height,
-                        j * self.cell_width : (j + 1) * self.cell_width,
+                    puzzle.image[
+                        i * puzzle.cell_height : (i + 1) * puzzle.cell_height,
+                        j * puzzle.cell_width : (j + 1) * puzzle.cell_width,
                     ].copy(),
-                    self.manga_image[
-                        j * self.cell_height : (j + 1) * self.cell_height,
-                        i * self.cell_width : (i + 1) * self.cell_width,
+                    puzzle.image[
+                        j * puzzle.cell_height : (j + 1) * puzzle.cell_height,
+                        i * puzzle.cell_width : (i + 1) * puzzle.cell_width,
                     ].copy(),
                 )
 
-    def buffer(self, ext: str = ".png") -> bytes:
-        return cv2.imencode(ext, self.manga_image)[1].tobytes()
+        return MangaImage(puzzle.image)

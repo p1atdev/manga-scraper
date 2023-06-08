@@ -1,4 +1,6 @@
 feedparser
 opencv-python
 python-opencv-utils
+tqdm
+numpy
 .

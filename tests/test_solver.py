@@ -16,25 +16,25 @@ class TestMangaSolver(unittest.TestCase):
         assert img is not None
 
     def test_solve_image_0(self):
-        solver = MangaSolver("./tests/assets/0-q.jpg")
-        solver.solve()
-        assert solver.buffer() is not None
+        solver = MangaSolver()
+        img = solver.solve("./tests/assets/0-q.jpg")
+        assert img.buffer() is not None
 
     def test_write_out_image_0(self):
-        solver = MangaSolver("./tests/assets/0-q.jpg")
-        solver.solve()
+        solver = MangaSolver()
+        img = solver.solve("./tests/assets/0-q.jpg")
 
         path = Path("./tests/assets/out/0.jpg").resolve()
-        cv2.imwrite(str(path), solver.manga_image)
+        cv2.imwrite(str(path), img.image)
 
     def test_compare_answer_image_0(self):
-        solver = MangaSolver("./tests/assets/0-q.jpg")
-        solver.solve()
+        solver = MangaSolver()
+        img = solver.solve("./tests/assets/0-q.jpg")
 
         answer = cv2.imread("./tests/assets/0-a.jpg")
         assert answer is not None
 
-        assert (solver.manga_image == answer).all()
+        assert (img.image == answer).all()
 
 
 if __name__ == "__main__":
