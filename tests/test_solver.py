@@ -1,7 +1,9 @@
 import unittest
-from src.solver.manga_solver import MangaSolver
-import cv2
 from pathlib import Path
+
+from manga_scraper.solver.manga_solver import MangaSolver
+
+import cv2
 
 output_path = Path("./tests/assets/out").resolve()
 output_path.mkdir(parents=True, exist_ok=True)

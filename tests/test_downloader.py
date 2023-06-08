@@ -1,6 +1,6 @@
 import unittest
 
-from src.downloader.episode import EpisodeDownloader
+from manga_scraper.downloader.episode import EpisodeDownloader
 
 
 class TestEpisodeDownloader(unittest.TestCase):

@@ -1,5 +1,6 @@
 import unittest
-from src.atom.parser import AtomParser
+
+from manga_scraper.atom.parser import AtomParser
 
 
 class TestAtomParser(unittest.TestCase):

@@ -1,7 +1,9 @@
 import unittest
-from src.utils.zip import save_as_zip
-import cv2
 from pathlib import Path
+
+from manga_scraper.utils.zip import save_as_zip
+
+import cv2
 
 
 class TestUtils(unittest.TestCase):
