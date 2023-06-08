@@ -6,7 +6,7 @@ setup(
     version="0.1.1",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    requires=[
+    install_requires=[
         "feedparser",
         "opencv-python",
         "python-opencv-utils",
