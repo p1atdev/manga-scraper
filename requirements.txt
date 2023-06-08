@@ -3,4 +3,5 @@ opencv-python
 python-opencv-utils
 tqdm
 numpy
+requests
 .
