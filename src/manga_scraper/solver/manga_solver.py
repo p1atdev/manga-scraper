@@ -43,6 +43,16 @@ class MangaSolver:
         return MangaPuzzle(image_path_or_url)
 
     def solve(self, image_path_or_url: str) -> MangaImage:
+        # transforms tiles like this:
+        # \ABC    \dgj
+        # d\ef -> A\hk
+        # gh\i    Be\l
+        # jkl\    Cfi\
+        #
+        # ◣◹ -> ◺◥
+        #
+        # see /tests/assets/0-q.jpg and 0-a.jpg see actual result
+
         puzzle = self._load_image(image_path_or_url)
 
         for i in range(puzzle.DIVIDE_NUM):
