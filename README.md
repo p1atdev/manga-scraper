@@ -5,6 +5,7 @@ Supported sites:
 - https://shonenjumpplus.com
 - https://www.sunday-webry.com/
 - https://tonarinoyj.jp
+- https://comic-days.com
 
 ### Usage of CLI script
 
