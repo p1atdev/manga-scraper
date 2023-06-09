@@ -3,9 +3,20 @@
 Supported sites:
 
 - https://shonenjumpplus.com
-- https://www.sunday-webry.com/
 - https://tonarinoyj.jp
+- https://viewer.heros-web.com
+- https://comicbushi-web.com
+- https://comicborder.com
 - https://comic-days.com
+- https://comic-action.com
+- https://comic-ogyaaa.com
+- https://comic-gardo.com
+- https://comic-zenon.com
+- https://feelweb.jp
+- https://kuragebunch.com
+- https://www.sunday-webry.com
+- ~~https://www.comicbunch.com~~
+- https://magcomi.com
 
 ### Usage of CLI script
 
