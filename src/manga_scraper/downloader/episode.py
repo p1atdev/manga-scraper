@@ -81,16 +81,19 @@ class EpisodeDownloader(Downloader):
         self.episode: EpisodeItem = json.loads(res.text)["readableProduct"]
 
     def _download_chunk(
-        self, chunk: List[EpisodePageItem], pbar: tqdm
+        self, chunk: List[EpisodePageItem], solve: bool, pbar: tqdm
     ) -> List[MangaImage]:
         results: List[MangaImage] = []
         for page in chunk:
-            answer = self.solver.solve(page["src"])
+            if solve:
+                answer = self.solver.solve(page["src"])
+            else:
+                answer = MangaImage(self.solver._load_image(page["src"]).image)
             results.append(answer)
             pbar.update(1)
         return results
 
-    def download(self, threads: int = 4) -> List[MangaImage]:
+    def download(self, threads: int = 4, solve: bool = True) -> List[MangaImage]:
         if self.episode is None:
             self._fetch_json()
 
@@ -109,7 +112,9 @@ class EpisodeDownloader(Downloader):
             with ThreadPoolExecutor(max_workers=threads) as executor:
                 futures = []
                 for chunk in chunks:
-                    futures.append(executor.submit(self._download_chunk, chunk, pbar))
+                    futures.append(
+                        executor.submit(self._download_chunk, chunk, solve, pbar)
+                    )
 
                 results = []
                 for future in futures:
